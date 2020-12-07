@@ -39,17 +39,6 @@ module.exports = {
       },
     ],
   },
-  // devServer: {
-  //   contentBase: path.join(__dirname, "dist"),
-  //   publicPath: "/",
-  //   compress: true,
-  //   port: 9000,
-  //   watchContentBase: true,
-  //   progress: true,
-  //   hot: true,
-  //   open: true,
-  //   historyApiFallback: true,
-  // },
   optimization: {
     splitChunks: {
       // Чанки для нашего приложения. Все наши npm-пакеты вынесем в отдельный файл с определенным хешем,
