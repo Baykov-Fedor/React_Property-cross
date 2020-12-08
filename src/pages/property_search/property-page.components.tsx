@@ -11,7 +11,7 @@ class SearchPage extends React.Component {
       <div className="search-page">
         <h1>
           Use the form below to search for houses to buy. You can search by
-          place-name, postcode
+          place-name, postcode sdfsdf
         </h1>
       </div>
     );
