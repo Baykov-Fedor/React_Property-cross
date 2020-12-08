@@ -4,7 +4,7 @@ import * as countries from "./regions.data.json";
 import "./search-form.styles.scss";
 
 function SearchForm() {
-  let countriesNew: { [key: string]: string } = countries;
+  const countriesNew: { [key: string]: string } = countries;
   let [searchInput, setSearchInput] = useState("");
   let [region, setRegion] = useState("");
 
@@ -14,8 +14,10 @@ function SearchForm() {
     switch (name) {
       case "searchInput":
         setSearchInput(value);
+        break;
       case "region":
         setRegion(countriesNew[value]);
+        break;
       default:
         return;
     }
@@ -23,8 +25,8 @@ function SearchForm() {
 
   let submitForm = async (evt: any) => {
     evt.preventDefault();
-    let url: string = `${region}/api?action=echo&encoding=json&place_name=${searchInput}`;
-    let response: any = await fetch(url);
+    let url: string = `${region}/api?action=search_listings&encoding=json&place_name=${searchInput}`;
+    let response: any = await fetch(url, { mode: "no-cors" });
     if (response.ok) {
       let json: JSON = await response.json();
       console.log(json);
@@ -49,8 +51,8 @@ function SearchForm() {
         onChange={handleChange}
         value={searchInput}
         name="searchInput"
-      ></input>
-      <input type="submit"></input>
+      />
+      <input type="submit" />
     </form>
   );
 }
