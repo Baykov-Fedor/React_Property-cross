@@ -1,44 +1,57 @@
 {
-  "name": "PropertyCross",
-  "version": "1.0.0",
-  "description": "",
+  "name": "Math-WEB-APP",
+  "version": "0.1.0",
   "main": "index.js",
+  "author": "Max",
+  "license": "MIT",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.3.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.0.1",
+    "css-minimizer-webpack-plugin": "^1.1.5",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "html-webpack-plugin": "^4.5.0",
-    "sass": "^1.29.0",
+    "mini-css-extract-plugin": "^1.3.2",
+    "node-sass": "^5.0.0",
+    "prettier": "^2.2.1",
+    "react-hot-loader": "^4.13.0",
     "sass-loader": "^10.1.0",
-    "ts-loader": "^8.0.11",
+    "style-loader": "^2.0.0",
     "typescript": "^4.1.2",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^5.9.0",
+    "webpack": "^5.10.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-notifier": "^1.11.0"
+    "webpack-merge": "^5.4.0"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0"
   },
-  "babel": {
-    "presets": [
-      "@babel/env",
-      "@babel/react"
-    ]
-  }
+  "proxy": "http://localhost:8080"
 }

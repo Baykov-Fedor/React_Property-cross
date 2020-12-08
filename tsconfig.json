@@ -1,13 +1,22 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "jsx": "react",
-    "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "removeComments": true,
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "baseUrl": "./"
+  "exclude": ["node_modules", "dist", "public"],
+  "typeAcquisition": {
+    "enable": true
   },
-  "exclude": ["node_modules"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "esnext",
+    "allowJs": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "noUnusedLocals": true,
+    "lib": ["es2018", "dom"],
+    "module": "esnext"
+  },
+  "include": ["src/**/*.{ts,tsx}"]
 }
