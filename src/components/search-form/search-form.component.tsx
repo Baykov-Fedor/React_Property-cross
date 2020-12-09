@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+import fetchJsonp from "fetch-jsonp";
 import * as countries from "./regions.data.json";
-// import { CallbackRegistry } from "./request.utils.js";
 
 import "./search-form.styles.scss";
-
-let CallbackRegistry = {} as any;
 
 function SearchForm() {
   const countriesNew: { [key: string]: string } = countries;
@@ -30,45 +28,18 @@ function SearchForm() {
     const url: string = `${region}/api?action=search_listings&encoding=json&pretty=1${
       searchInput ? `&place_name=${searchInput}` : ""
     }`;
-    const answer: any = scriptRequest(
-      url,
-      (data) => data,
-      (url: string) => alert("Ошибка при запросе " + url)
-    );
-    console.log(answer);
-    // const response: any = await fetch(url, { mode: "no-cors" });
-    // if (response.ok) {
-    //   const json: JSON = await response.json();
-    //   console.log(json);
-    // } else {
-    //   alert(`Ошибка HTTP: ${response.status}`);
-    // }
-  };
-
-  const scriptRequest = (
-    url: string,
-    onSuccess: (data: any) => any,
-    onError: (url: string) => any
-  ) => {
-    const script: HTMLScriptElement = document.createElement("script");
-    let scriptOk: boolean = false;
-    url += "&callback=CallbackRegistry.onDataLoad";
-
-    CallbackRegistry.onDataLoad = (data: any) => {
-      scriptOk = true;
-      delete CallbackRegistry.onDataLoad;
-      onSuccess(data);
-    };
-
-    function checkCallback() {
-      if (scriptOk) return;
-      delete CallbackRegistry.onDataLoad;
-      onError(url);
-    }
-
-    script.onload = script.onerror = checkCallback;
-    script.src = url;
-    document.head.appendChild(script);
+    fetchJsonp(url, {
+      jsonpCallbackFunction: "search_results",
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (json) {
+        console.log("parsed json", json);
+      })
+      .catch(function (ex) {
+        console.log("parsing failed", ex);
+      });
   };
 
   return (
