@@ -1,55 +1,50 @@
-import React, { useState } from "react";
-import fetchJsonp from "fetch-jsonp";
-import * as countries from "./regions.data.json";
+import React, { useState } from 'react'
+import searchEstate from './search.utils'
+import './search-form.styles.scss'
 
-import "./search-form.styles.scss";
+const countries: { [keys: string]: string } = {
+  Australia: 'https://api.nestoria.com.au',
+  Brasil: 'https://api.nestoria.com.br',
+  Deutschland: 'https://api.nestoria.de',
+  España: 'https://api.nestoria.es',
+  France: 'https://api.nestoria.fr',
+  India: 'https://api.nestoria.in',
+  Italia: 'https://api.nestoria.it',
+  Mexico: 'https://api.nestoria.mx',
+  UK: 'https://api.nestoria.co.uk',
+}
 
 function SearchForm() {
-  const countriesNew: { [key: string]: string } = countries;
-  const [searchInput, setSearchInput] = useState("");
-  const [region, setRegion] = useState("");
+  const countriesNew: { [key: string]: string } = countries
+  const [searchInput, setSearchInput] = useState('')
+  const [region, setRegion] = useState('Australia')
+  const [apiResponse, setApiResponse] = useState('')
 
-  const handleChange = (evt: any) => {
-    const { value, name }: { value: string; name: string } = evt.target;
-    switch (name) {
-      case "searchInput":
-        setSearchInput(value);
-        break;
-      case "region":
-        setRegion(countriesNew[value]);
-        break;
-      default:
-        return;
-    }
-  };
+  const handleSearch = (evt: any) => {
+    const { value }: { value: string } = evt.target
+    setSearchInput(value)
+  }
+
+  const handleRegion = (evt: any) => {
+    const { value }: { value: string } = evt.target
+    setRegion(value)
+  }
 
   const submitForm = async (evt: any) => {
-    evt.preventDefault();
-    const url: string = `${region}/api?action=search_listings&encoding=json&pretty=1${
-      searchInput ? `&place_name=${searchInput}` : ""
-    }`;
-    fetchJsonp(url, {
-      jsonpCallbackFunction: "search_results",
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (json) {
-        console.log("parsed json", json);
-      })
-      .catch(function (ex) {
-        console.log("parsing failed", ex);
-      });
-  };
+    evt.preventDefault()
+    let regionURL: string = countriesNew[region]
+    await searchEstate(regionURL, searchInput).then((data) => setApiResponse(data.response))
+    console.log(apiResponse)
+  }
 
   return (
     <form className="search-form" onSubmit={submitForm}>
       <label htmlFor="selectCountry">
         Select Country:
-        <select id="selectCountry" onChange={handleChange} name="region">
-          {Object.keys(countries).map((item, idx) => (
-            <option key={idx} value={item}>
-              {item}
+        <select id="selectCountry" onChange={handleRegion} name="region" value={region}>
+          {Object.keys(countries).map((country) => (
+            <option key={country} value={country}>
+              {country}
             </option>
           ))}
         </select>
@@ -57,13 +52,13 @@ function SearchForm() {
       <input
         type="text"
         placeholder="Type in place, post code, tube station, etc."
-        onChange={handleChange}
+        onChange={handleSearch}
         value={searchInput}
         name="searchInput"
       />
       <input type="submit" />
     </form>
-  );
+  )
 }
 
-export default SearchForm;
+export default SearchForm

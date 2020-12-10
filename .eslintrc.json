@@ -23,14 +23,10 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-console": "off",
-    "quotes": [2, "double", { "avoidEscape": true }],
     "linebreak-style": "off",
     "prettier/prettier": "error",
     "@typescript-eslint/no-use-before-define": ["error"],
-    "react/jsx-filename-extension": [
-      1,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/prop-types": [2, { "ignore": ["children"] }]
   }
 }
