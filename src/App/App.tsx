@@ -1,4 +1,5 @@
 import React from "react";
+import SearchPage from "../pages/property_search/property-page.components";
 import "./App.scss";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
         <h1>Welcome to page</h1>
       </header>
       <main>
-        <h2>Main page</h2>
+        <SearchPage />
       </main>
       <footer className="footer">
         <a href="https://www.nestoria.co.uk">
